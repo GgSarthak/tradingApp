@@ -8,20 +8,20 @@ const bookController = {
         } catch (error) {
             res.json({msg: error.msg})
         }
-    }
-    // getById: async(req, res) => {
-    //     try {
-    //         const { rows } = await postgre.query("select * from books where book_id = $1", [req.params.id])
-
-    //         if (rows[0]) {
-    //             return res.json({msg: "OK", data: rows})
-    //         }
-
-    //         res.status(404).json({msg: "not found"})
-    //     } catch (error) {
-    //         res.json({msg: error.msg})
-    //     }
-    // },
+    },
+    loginByEmailPassword: async(req, res) => {
+        try {
+            console.log("Req", req)
+            const { rows } = await postgre.query("select * from books where email = $1 and password = $2 ", [req.params.email,req.params.password])
+            if (rows[0]) {
+                return res.json({msg: "OK", login: true})
+            }else{
+                return res.json({msg: "LOGIN FAILED", login: false})
+            }
+        } catch (error) {
+            res.json({msg: error.msg})
+        }
+    },
     // create: async(req, res) => {
     //     try {
     //         const { name, price } = req.body
