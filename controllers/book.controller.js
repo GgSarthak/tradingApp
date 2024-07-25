@@ -3,6 +3,7 @@ const bookController = {
     getAll: async(req, res) => {
         try {
             const { rows } = await postgre.query("select * from employees")
+            console.log("Rows",rows)
             res.json({msg: "OK", data: rows})
         } catch (error) {
             res.json({msg: error.msg})
