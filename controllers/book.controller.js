@@ -12,9 +12,9 @@ const bookController = {
     loginByEmailPassword: async(req, res) => {
         try {
             console.log("Req", req)
-            const { rows } = await postgre.query("select * from employees where email = $1 and password = $2 ", [req.params.email,req.params.password])
+            const { rows } = await postgre.query("select first_name,last_name,user_id,email  from employees where email = $1 and password = $2 ", [req.params.email,req.params.password]);
             if (rows[0]) {
-                return res.json({msg: "OK", login: true})
+                return res.json({msg: "OK", login: true, data:rows[0]})
             }else{
                 return res.json({msg: "LOGIN FAILED", login: false})
             }
