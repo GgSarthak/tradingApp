@@ -11,7 +11,6 @@ const bookController = {
     },
     loginByEmailPassword: async(req, res) => {
         try {
-            console.log("Req", req)
             const { rows } = await postgre.query("select first_name,last_name,user_id,email  from employees where email = $1 and password = $2 ", [req.params.email,req.params.password]);
             if (rows[0]) {
                 return res.json({msg: "OK", login: true, data:rows[0]})
@@ -22,20 +21,20 @@ const bookController = {
             res.json({msg: error.msg})
         }
     },
-    // create: async(req, res) => {
-    //     try {
-    //         const { name, price } = req.body
+    buyCreateTable: async(req, res) => {
+        try {
+            const { user, currentPrice, status, buyPrice, quantity, bankname } = req.body
 
-    //         const sql = 'INSERT INTO books(name, price) VALUES($1, $2) RETURNING *'
+            const sql = 'INSERT INTO buyTable(user_id , status ,bankname,buy_prise,current_prise,quantity) VALUES($1, $2, $3, $4, $5) RETURNING *'
 
-    //         const { rows } = await postgre.query(sql, [name, price])
+            const { rows } = await postgre.query(sql, [user, status,bankname, buyPrice, currentPrice, quantity ])
 
-    //         res.json({msg: "OK", data: rows[0]})
+            res.json({msg: "OK", data: rows[0]})
 
-    //     } catch (error) {
-    //         res.json({msg: error.msg})
-    //     }
-    // },
+        } catch (error) {
+            res.json({msg: error.msg})
+        }
+    },
     // updateById: async(req, res) => {
     //     try {
     //         const { name, price } = req.body
