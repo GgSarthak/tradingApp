@@ -39,8 +39,7 @@ const bookController = {
         currentPrice,
         quantity,
       ]);
-      // Handle successful insertion here
-      console.log("Insertion successful:", rows[0]);
+      return res.json({ msg: "Insertion successful" });
     } catch (err) {
       // Handle errors here
       console.error("Error inserting data:", err);
