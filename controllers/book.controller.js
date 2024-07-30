@@ -58,6 +58,17 @@ const bookController = {
       res.json({ msg: error.msg });
     }
   },
+  getBalanceById: async (req, res) => {
+    try {
+      const { rows } = await postgre.query(
+        "select * from balancerecord where user_id = $1",
+        [req.params.userId]
+      );
+      res.json({ msg: "OK", data: rows });
+    } catch (error) {
+      res.json({ msg: error.msg });
+    }
+  },
   // updateById: async(req, res) => {
   //     try {
   //         const { name, price } = req.body
